@@ -129,7 +129,7 @@ A continuación se presentan las capturas de pantalla organizadas por etapa del 
 | :--- | :--- |
 | **GET /api/multas (200 OK):** Consulta inicial de multas. | ![GET 200](images/checkpoin_get_200OK.png) |
 | **POST /api/multas (201 Created):** Generación exitosa de multa. | ![POST 201](images/checkpoint_post_JSON_201.png) |
-| **POST /api/multas (400 Bad Request):** Validación de datos de entrada. | ![POST 400](images/checkpoint_post_400_Bad_Request.png) |
+| **POST /api/multas (400 Bad Request):** Validación de datos de entrada. | ![POST 400](images/checkpoint_post_400_Bad%20_Request.png) |
 | **GET /api/multas/{id} (404 Not Found):** Búsqueda de multa inexistente. | ![GET 404](images/checkpoint_status404.png) |
 | **POST /api/multas (409 Conflict):** Límite de multas pendientes superado. | ![POST 409](images/checkpoint_status409.png) |
 | **PATCH /api/multas/{id}/pagar (200 OK):** Pago exitoso en ventanilla. | ![PATCH 200](images/checkpoint_patch.png) |
