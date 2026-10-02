@@ -118,3 +118,29 @@ Se descartó el uso de condicionales en servicio (Opción A) e interfaces tradic
 ## 5. Conclusiones
 
 La evolución de la aplicación demostró el valor de separar responsabilidades desde las etapas iniciales del software. Al aislar la lógica del dominio de la infraestructura en la Parte 2 mediante un puerto agnóstico, se logró integrar pasarelas de pago externas totalmente heterogéneas sin alterar ni una sola línea de lógica del núcleo de negocio ni de la API REST. Esta experiencia evidencia cómo los patrones de arquitectura hexagonal protegen al sistema contra cambios tecnológicos futuros en dependencias de terceros.
+
+## 6. Evidencias de Pruebas y Checkpoints
+A continuación se presentan las capturas de pantalla organizadas por etapa del laboratorio:
+
+### Parte 1 — Checkpoints API REST
+### Parte 1 — Checkpoints API REST
+
+| Descripción | Imagen |
+| :--- | :--- |
+| **GET /api/multas (200 OK):** Consulta inicial de multas. | ![GET 200](images/checkpoin_get_200OK.png) |
+| **POST /api/multas (201 Created):** Generación exitosa de multa. | ![POST 201](images/checkpoint_post_JSON_201.png) |
+| **POST /api/multas (400 Bad Request):** Validación de datos de entrada. | ![POST 400](images/checkpoint_post_400_Bad_Request.png) |
+| **GET /api/multas/{id} (404 Not Found):** Búsqueda de multa inexistente. | ![GET 404](images/checkpoint_status404.png) |
+| **POST /api/multas (409 Conflict):** Límite de multas pendientes superado. | ![POST 409](images/checkpoint_status409.png) |
+| **PATCH /api/multas/{id}/pagar (200 OK):** Pago exitoso en ventanilla. | ![PATCH 200](images/checkpoint_patch.png) |
+| **PATCH /api/multas/{id}/pagar (409 Conflict):** Intento de re-pago en ventanilla. | ![PATCH 409](images/checkpoint_patch_status409.png) |
+
+---
+
+### Parte 2 — Checkpoints Pago en Línea (Adapter / Hexagonal)
+
+| Descripción | Imagen |
+| :--- | :--- |
+| **PagosUDES Adapter (402 Payment Required):** Ejecución con `app.pagos.proveedor=pagosudes`. | ![PagosUDES 402](images/checkpoint_pagosudes_402.png) |
+| **Wompi Adapter (402 Payment Required):** Ejecución con `app.pagos.proveedor=wompi`. | ![Wompi 402](images/checkpoint_wompi402.png) |
+| **Independencia del Dominio:** Verificación del archivo `PasarelaPagoPort.java` sin importaciones de Spring. | ![Domain Sin Spring](images/checkpoint_domain_sin_spring.png) |
