@@ -1,16 +1,18 @@
 package com.example.multas.controller;
 
-import com.example.multas.model.LimiteMultasPendientesException;
-import com.example.multas.model.MultaNotFoundException;
-import com.example.multas.model.MultaYaPagadaException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.example.multas.domain.PagoRechazadoException;
+import com.example.multas.model.LimiteMultasPendientesException;
+import com.example.multas.model.MultaNotFoundException;
+import com.example.multas.model.MultaYaPagadaException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -32,7 +34,14 @@ public class GlobalExceptionHandler {
     public Map<String, String> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errores = new HashMap<>();
         ex.getBindingResult().getFieldErrors()
-            .forEach(e -> errores.put(e.getField(), e.getDefaultMessage()));
+                .forEach(e -> errores.put(e.getField(), e.getDefaultMessage()));
         return errores;
+    }
+
+    // NUEVO MANEJADOR — Paso 12
+    @ExceptionHandler(PagoRechazadoException.class)
+    @ResponseStatus(HttpStatus.PAYMENT_REQUIRED) // 402 mas preciso que 409 para un pago rechazado por la pasarela
+    public Map<String, String> handlePagoRechazado(PagoRechazadoException ex) {
+        return Map.of("error", ex.getMessage());
     }
 }
