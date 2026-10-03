@@ -52,6 +52,7 @@ diaz-post1-u7/
         │   ├── controller/
         │   │   ├── MultaController.java
         │   │   └── GlobalExceptionHandler.java
+        │   │   └── GenerarMultaRequest.java
         │   ├── service/
         │   │   └── MultaService.java
         │   ├── model/
