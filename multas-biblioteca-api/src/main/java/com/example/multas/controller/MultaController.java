@@ -16,8 +16,6 @@ import com.example.multas.model.Multa;
 import com.example.multas.service.MultaService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/api/multas")
@@ -54,14 +52,9 @@ public class MultaController {
     public Multa pagarEnVentanilla(@PathVariable Long id) {
         return multaService.pagarEnVentanilla(id);
     }
-    @PostMapping("/{id}/pagar-en-linea")
-public Multa pagarEnLinea(@PathVariable Long id) {
-    return multaService.pagarConPasarela(id);
-}
-}
 
-record GenerarMultaRequest(
-    @NotBlank String estudianteId,
-    @NotBlank String concepto,
-    @Min(1) int diasAtraso
-) {}
+    @PostMapping("/{id}/pagar-en-linea")
+    public Multa pagarEnLinea(@PathVariable Long id) {
+        return multaService.pagarConPasarela(id);
+    }
+}
